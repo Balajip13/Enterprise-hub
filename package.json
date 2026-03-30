@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run build --prefix server",
-    "start": "node server/dist/index.js",
+    "build": "npm install --prefix server && npm run build --prefix server",
+    "start": "npm start --prefix server",
     "preview": "vite preview"
   },
   "engines": {
