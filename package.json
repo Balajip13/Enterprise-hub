@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm install --prefix server && npm run build --prefix server",
-    "start": "npm start --prefix server",
+    "build": "cd server && npm install && npm run build",
+    "start": "cd server && npm start",
     "preview": "vite preview"
   },
   "engines": {
