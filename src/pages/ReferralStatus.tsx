@@ -57,7 +57,7 @@ const ReferralStatus: React.FC<ReferralStatusProps> = ({ user }) => {
       if (!user?.id) return;
       try {
         setLoading(true);
-        const data = await apiService.getReferrals(user.id);
+        const data = await apiService.getReferrals(user?.id);
         setReferrals(data);
       } catch (err) {
         console.error('Error fetching referrals:', err);
@@ -252,22 +252,22 @@ const ReferralStatus: React.FC<ReferralStatusProps> = ({ user }) => {
               </div>
 
               <div className="pt-6 border-t border-slate-50 flex items-center justify-between">
-                <div className="flex items-center gap-3">
+                 <div className="flex items-center gap-3">
                    <div className="w-12 h-12 bg-slate-900 text-white rounded-2xl flex items-center justify-center font-black">
-                      {selectedReferral.referrer?.name.charAt(0)}
+                      {selectedReferral.referrer?.name?.charAt(0) || 'P'}
                    </div>
                    <div>
                       <p className="text-[10px] font-bold text-slate-400 uppercase">Referred By</p>
-                      <p className="text-sm font-black text-slate-800">{selectedReferral.referrer?.name}</p>
+                      <p className="text-sm font-black text-slate-800">{selectedReferral.referrer?.name || 'Partner'}</p>
                    </div>
                 </div>
                 <div className="flex items-center gap-3 text-right">
                    <div>
                       <p className="text-[10px] font-bold text-slate-400 uppercase">Recipient</p>
-                      <p className="text-sm font-black text-slate-800">{selectedReferral.recipient?.name}</p>
+                      <p className="text-sm font-black text-slate-800">{selectedReferral.recipient?.name || 'Member'}</p>
                    </div>
                    <div className="w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-black">
-                      {selectedReferral.recipient?.name.charAt(0)}
+                      {selectedReferral.recipient?.name?.charAt(0) || 'M'}
                    </div>
                 </div>
               </div>

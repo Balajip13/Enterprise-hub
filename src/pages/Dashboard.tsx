@@ -52,7 +52,7 @@ const Dashboard: React.FC<UserDashboardProps> = ({ user, onTabChange }) => {
       try {
         setLoading(true);
         const [data, leaderboardData] = await Promise.all([
-          apiService.getDashboardStats(user.id),
+          apiService.getDashboardStats(user?.id),
           apiService.getLeaderboard()
         ]);
         setStats(data.stats);
@@ -224,9 +224,9 @@ const Dashboard: React.FC<UserDashboardProps> = ({ user, onTabChange }) => {
                 {recentReferrals.length > 0 ? (
                   recentReferrals.map((ref) => (
                     <tr key={ref._id} className="group hover:bg-slate-50/50 transition-colors">
-                      <td className="px-6 sm:px-0 py-4 font-bold text-sm text-slate-700">{ref.referrer?.name}</td>
-                      <td className="py-4 font-bold text-sm text-slate-700">{ref.recipient?.name}</td>
-                      <td className="py-4 font-bold text-sm text-slate-700">{ref.businessType}</td>
+                      <td className="px-6 sm:px-0 py-4 font-bold text-sm text-slate-700">{ref.referrer?.name || 'Partner'}</td>
+                      <td className="py-4 font-bold text-sm text-slate-700">{ref.recipient?.name || 'Member'}</td>
+                      <td className="py-4 font-bold text-sm text-slate-700">{ref.businessType || 'General'}</td>
                       <td className="py-4">
                         <span className={`px-2 py-1 rounded-full text-[10px] font-black uppercase tracking-tight 
                           ${ref.status === 'Closed' ? 'bg-emerald-100 text-emerald-600' : 
@@ -318,7 +318,7 @@ const Dashboard: React.FC<UserDashboardProps> = ({ user, onTabChange }) => {
                         #{idx + 1}
                       </div>
                       <div>
-                        <p className="text-sm font-black text-slate-900">{item.name === user.name ? 'You' : item.name}</p>
+                        <p className="text-sm font-black text-slate-900">{item.name === user?.name ? 'You' : item.name}</p>
                         <p className={`text-[10px] font-black uppercase tracking-tight ${item.activityScore >= 80 ? 'text-indigo-600' : 'text-slate-400'}`}>
                           {item.activityScore >= 90 ? 'Platinum Tier' : item.activityScore >= 75 ? 'Gold Tier' : item.activityScore >= 50 ? 'Silver Tier' : 'Bronze Tier'}
                         </p>

@@ -424,9 +424,9 @@ const Profile: React.FC<ProfileProps> = ({ onSignOut }) => {
   if (!profileData || !profileData.user) return null;
 
   const { user, stats } = profileData;
-  const BusinessIcon = user.businessType === 'FREELANCER' ? UserCheck : Building2;
+  const BusinessIcon = user?.businessType === 'FREELANCER' ? UserCheck : Building2;
   const baseMembershipFee = 999;
-  const currentDiscount = user.membershipDiscount || 0;
+  const currentDiscount = user?.membershipDiscount || 0;
   const finalBill = Math.max(0, baseMembershipFee - currentDiscount);
 
   return (
@@ -468,10 +468,10 @@ const Profile: React.FC<ProfileProps> = ({ onSignOut }) => {
             <div className="relative group flex-shrink-0">
               <div className="p-1.5 bg-white rounded-[2rem] sm:rounded-[2rem] shadow-xl ring-4 ring-white">
                 <div className="w-24 h-24 sm:w-28 sm:h-28 bg-slate-50 rounded-[1.6rem] overflow-hidden border border-slate-100 flex items-center justify-center">
-                  {user.profileImage ? (
+                  {user?.profileImage ? (
                     <img src={user.profileImage} alt="Profile" className="w-full h-full object-cover" />
                   ) : (
-                    <span className="text-4xl font-black text-indigo-600/20">{(user.name || 'U').charAt(0)}</span>
+                    <span className="text-4xl font-black text-indigo-600/20">{(user?.name || 'U').charAt(0)}</span>
                   )}
                 </div>
               </div>
@@ -490,26 +490,26 @@ const Profile: React.FC<ProfileProps> = ({ onSignOut }) => {
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-3">
                 <div className="flex flex-col items-center sm:items-start w-full">
                   <div className="flex flex-col sm:flex-row items-center gap-3 mb-3 shrink-0">
-                    <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight leading-none truncate max-w-[280px] sm:max-w-md">{user.name}</h2>
+                    <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight leading-none truncate max-w-[280px] sm:max-w-md">{user?.name}</h2>
                     <div className="flex gap-2">
                       <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-600 text-white rounded-lg text-[8px] font-black uppercase tracking-widest shadow-lg shadow-indigo-600/20">
                         <BusinessIcon className="w-3.5 h-3.5" />
-                        {user.businessType || 'Organization'}
+                        {user?.businessType || 'Organization'}
                       </div>
                       <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border ${
-                        stats.reputationTier === 'Platinum' ? 'bg-indigo-50 text-indigo-600 border-indigo-100 shadow-md shadow-indigo-100' :
-                        stats.reputationTier === 'Gold' ? 'bg-amber-50 text-amber-600 border-amber-100 shadow-md shadow-amber-100' :
-                        stats.reputationTier === 'Silver' ? 'bg-slate-50 text-slate-600 border-slate-100' :
+                        stats?.reputationTier === 'Platinum' ? 'bg-indigo-50 text-indigo-600 border-indigo-100 shadow-md shadow-indigo-100' :
+                        stats?.reputationTier === 'Gold' ? 'bg-amber-50 text-amber-600 border-amber-100 shadow-md shadow-amber-100' :
+                        stats?.reputationTier === 'Silver' ? 'bg-slate-50 text-slate-600 border-slate-100' :
                         'bg-emerald-50 text-emerald-600 border-emerald-100'
                       }`}>
                         <Award className="w-3.5 h-3.5" />
-                        {stats.reputationTier || 'Bronze'}
+                        {stats?.reputationTier || 'Bronze'}
                       </div>
                     </div>
                   </div>
                   
                   <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 mb-3">
-                    {user.availability && (
+                    {user?.availability && (
                       <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest border shadow-sm ${
                         user.availability.status === 'Open for Referrals' ? 'bg-emerald-50 text-emerald-600 border-emerald-100' :
                         user.availability.status === 'Limited Capacity' ? 'bg-amber-50 text-amber-600 border-amber-100' :
@@ -528,12 +528,12 @@ const Profile: React.FC<ProfileProps> = ({ onSignOut }) => {
                   <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 text-slate-400 font-bold text-[11px] sm:text-xs">
                     <p className="flex items-center gap-1.5">
                       <MapPin className="w-4 h-4 text-indigo-400" />
-                      {user.location || 'Global Base'}
+                      {user?.location || 'Global Base'}
                     </p>
                     <div className="hidden sm:block w-1 h-1 bg-slate-200 rounded-full"></div>
                     <p className="flex items-center gap-1.5">
                       <Briefcase className="w-4 h-4 text-indigo-400" />
-                      {user.category || 'Lead Industry'}
+                      {user?.category || 'Lead Industry'}
                     </p>
                   </div>
                 </div>
@@ -575,7 +575,7 @@ const Profile: React.FC<ProfileProps> = ({ onSignOut }) => {
               <FileText className="w-3.5 h-3.5" /> Executive Summary
             </h4>
             <p className="text-slate-600 font-medium leading-relaxed text-[13px] italic">
-              {user.description || "No mission statement provided. Clearly defining your business goals helps other members identify perfect referral opportunities for you."}
+              {user?.description || "No mission statement provided. Clearly defining your business goals helps other members identify perfect referral opportunities for you."}
             </p>
           </div>
 
@@ -594,7 +594,7 @@ const Profile: React.FC<ProfileProps> = ({ onSignOut }) => {
                     </p>
                   </div>
                 </div>
-                {user.portfolioVideo && (
+                {user?.portfolioVideo && (
                   <button 
                     onClick={() => videoInputRef.current?.click()}
                     className="w-full sm:w-auto group/btn relative flex items-center justify-center gap-2 px-6 py-3 bg-white hover:bg-slate-950 text-slate-600 hover:text-white rounded-full transition-all duration-500 text-[10px] font-black uppercase tracking-widest border border-slate-200 hover:border-slate-950 shadow-sm"
@@ -607,7 +607,7 @@ const Profile: React.FC<ProfileProps> = ({ onSignOut }) => {
               
               <div className="px-6 sm:px-8 pb-8 w-full">
                 <div className="bg-slate-50/50 p-2 sm:p-5 rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100/50">
-                  {user.portfolioVideo ? (
+                  {user?.portfolioVideo ? (
                     <div className="relative rounded-[1.2rem] sm:rounded-[1.5rem] overflow-hidden aspect-video bg-slate-950 shadow-2xl group/video w-full">
                       <video 
                         ref={videoRef}
@@ -677,7 +677,7 @@ const Profile: React.FC<ProfileProps> = ({ onSignOut }) => {
                   <Package className="w-3.5 h-3.5" /> Business Services
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {user.services && user.services.length > 0 ? (
+                  {user?.services && user.services.length > 0 ? (
                     user.services.map((service: any, idx: number) => (
                       <div key={idx} className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:border-indigo-100 hover:shadow-md transition-all group">
                         <div className="flex items-center gap-3 mb-2.5">
@@ -709,7 +709,7 @@ const Profile: React.FC<ProfileProps> = ({ onSignOut }) => {
                   <Target className="w-3.5 h-3.5" /> Ideal Referrals
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {user.idealReferrals && user.idealReferrals.length > 0 ? (
+                  {user?.idealReferrals && user.idealReferrals.length > 0 ? (
                     user.idealReferrals.map((ref: any, idx: number) => (
                       <div key={idx} className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:border-emerald-100 hover:shadow-md transition-all">
                         <div className="flex items-center justify-between mb-2.5">
@@ -799,7 +799,7 @@ const Profile: React.FC<ProfileProps> = ({ onSignOut }) => {
                     <div>
                       <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Referral Engine</h3>
                       <p className="text-xl font-black text-emerald-600 tracking-tight italic">
-                        {user.walletBalance ? `₹${user.walletBalance.toLocaleString()}` : '₹0'} <span className="text-[10px] text-slate-400 font-bold ml-1 uppercase not-italic">Wallet</span>
+                        {user?.walletBalance ? `₹${user.walletBalance.toLocaleString()}` : '₹0'} <span className="text-[10px] text-slate-400 font-bold ml-1 uppercase not-italic">Wallet</span>
                       </p>
                     </div>
                   </div>
@@ -809,17 +809,17 @@ const Profile: React.FC<ProfileProps> = ({ onSignOut }) => {
                   <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-3">Your Unique Link</p>
                   <div className="flex items-center gap-2">
                     <div className="flex-1 bg-white px-3 py-2.5 rounded-xl border border-slate-200 text-[11px] font-medium text-slate-600 truncate shadow-inner">
-                      {window.location.origin}/register?ref={user.referralCode || 'PENDING'}
+                      {window.location.origin}/register?ref={user?.referralCode || 'PENDING'}
                     </div>
                     <button 
-                      onClick={() => handleCopy(`${window.location.origin}/register?ref=${user.referralCode}`, 'refLink')}
+                      onClick={() => handleCopy(`${window.location.origin}/register?ref=${user?.referralCode}`, 'refLink')}
                       className={`p-2.5 rounded-xl text-white transition-all shadow-md ${copiedField === 'refLink' ? 'bg-emerald-500 shadow-emerald-500/20' : 'bg-slate-950 hover:bg-indigo-600 shadow-slate-950/20'}`}
                       title={copiedField === 'refLink' ? "Copied!" : "Copy Referral Link"}
                     >
                       {copiedField === 'refLink' ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                     </button>
                   </div>
-                  {user.referredBy && (
+                  {user?.referredBy && (
                     <p className="text-[9px] text-slate-400 font-bold mt-3">Referred by: {user.referredBy}</p>
                   )}
                 </div>
@@ -894,8 +894,8 @@ const Profile: React.FC<ProfileProps> = ({ onSignOut }) => {
           {/* Bottom Row: Verification & Public Presence */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-5 pt-5 border-t border-slate-100">
             {[
-              { label: 'GSTIN Protocol', val: user.gstNumber, field: 'gst' },
-              { label: 'Asset PAN', val: user.panNumber, field: 'pan' }
+              { label: 'GSTIN Protocol', val: user?.gstNumber, field: 'gst' },
+              { label: 'Asset PAN', val: user?.panNumber, field: 'pan' }
             ].map((item) => (
               <div key={item.field} className="p-5 bg-slate-50 hover:bg-white rounded-2xl border border-slate-100 hover:border-indigo-100 hover:shadow-sm transition-all group">
                 <div className="flex items-center gap-2.5 mb-3">

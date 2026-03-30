@@ -89,7 +89,7 @@ const Referrals: React.FC<ReferralsProps> = ({ user, onNavigateToMember, onAddNe
     if (!user?.id) return;
     try {
       setLoading(true);
-      const data = await apiService.getReferrals(user.id);
+      const data = await apiService.getReferrals(user?.id);
       setReferrals(data);
       setError(null);
     } catch (err) {
@@ -108,8 +108,8 @@ const Referrals: React.FC<ReferralsProps> = ({ user, onNavigateToMember, onAddNe
   const fetchChapterMembers = async () => {
     if (!user?.chapter) return;
     try {
-      const data = await apiService.getChapterMembers(user.chapter);
-      setChapterMembers(data.filter((m: any) => m._id !== user.id));
+      const data = await apiService.getChapterMembers(user?.chapter);
+      setChapterMembers(data.filter((m: any) => m._id !== user?.id));
     } catch (err) {
       console.error('Error fetching chapter members:', err);
     }
@@ -131,7 +131,7 @@ const Referrals: React.FC<ReferralsProps> = ({ user, onNavigateToMember, onAddNe
     try {
       setLoading(true);
       await apiService.createReferral({
-        referrer: user.id,
+        referrer: user?.id,
         recipient: newReferral.recipientId,
         clientName: newReferral.clientName,
         email: newReferral.email.toLowerCase().trim(),
@@ -313,9 +313,9 @@ const Referrals: React.FC<ReferralsProps> = ({ user, onNavigateToMember, onAddNe
                         <span className="hidden sm:inline opacity-30">•</span>
                         <div className="flex items-center gap-1 font-black shrink-0">
                           {isMyReferral ? (
-                            <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-lg uppercase">TO: {ref.recipient?.name}</span>
+                            <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-lg uppercase">TO: {ref.recipient?.name || 'Unknown'}</span>
                           ) : (
-                            <span className="text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-lg uppercase">FROM: {ref.referrer?.name}</span>
+                            <span className="text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-lg uppercase">FROM: {ref.referrer?.name || 'Partner'}</span>
                           )}
                         </div>
                       </div>
