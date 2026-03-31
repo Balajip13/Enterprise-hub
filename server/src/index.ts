@@ -81,7 +81,7 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 mongoose.connect(process.env.MONGODB_URI!)
   .then(() => {
     console.log('✅ Connected to MongoDB');
-    app.listen(PORT as number, '0.0.0.0', () => {
+    app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
     });
   })
