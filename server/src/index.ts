@@ -27,7 +27,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware Setup
 app.use(cors({
-  origin: true,
+  origin: "*",
   credentials: true
 }));
 app.use(express.json());
@@ -35,7 +35,12 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // ── Health Check ────────────────────────────────────────────────────────────
 app.get('/', (req, res) => {
-  res.send('Backend is running');
+  res.send('Server is running');
+});
+
+// API Test Route
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'API working' });
 });
 
 // ── Public Routes ───────────────────────────────────────────────────────────
@@ -81,7 +86,7 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 mongoose.connect(process.env.MONGODB_URI!)
   .then(() => {
     console.log('✅ Connected to MongoDB');
-    app.listen(PORT, () => {
+    app.listen(Number(PORT), '0.0.0.0', () => {
       console.log(`🚀 Server running on port ${PORT}`);
     });
   })
