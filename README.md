@@ -1,4 +1,4 @@
-# XOON – Referral Marketing Platform
+# Referral Marketing Platform
 
 This project is a full-stack referral marketing platform built using the MERN stack.
 It was developed to simulate how a real-world system handles referrals, meetings, and role-based access in a structured way.
@@ -141,7 +141,6 @@ While building this, the main focus was:
 * Email verification system
 * Payment integration
 * Better analytics
-* Real-time updates
 
 ---
 
