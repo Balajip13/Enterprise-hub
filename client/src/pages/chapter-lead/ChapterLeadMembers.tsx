@@ -19,7 +19,7 @@ import {
   ShieldCheck
 } from 'lucide-react';
 
-const API_BASE = `${import.meta.env.VITE_API_URL}/auth`;
+const API_BASE = `${(import.meta.env.VITE_API_URL || '').replace(/\/$/, '')}/auth`;
 
 interface Member {
   _id: string;
@@ -53,7 +53,7 @@ const ChapterLeadMembers: React.FC<ChapterLeadMembersProps> = ({ user }) => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const response = await apiFetch(`${import.meta.env.VITE_API_URL}/users/chapter-members/${user.chapter}`, {
+      const response = await apiFetch(`${(import.meta.env.VITE_API_URL || '').replace(/\/$/, '')}/users/chapter-members/${user.chapter}`, {
         headers: token ? { 'Authorization': `Bearer ${token}` } : {}
       });
       if (!response.ok) throw new Error('Failed to fetch members');

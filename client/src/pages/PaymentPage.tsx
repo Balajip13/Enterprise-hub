@@ -43,7 +43,7 @@ const PaymentPage: React.FC<PaymentPageProps> = ({ onPaymentSuccess }) => {
     // Fetch Admin Payment Configuration
     const fetchConfig = async () => {
       try {
-        const res = await apiFetch(`${import.meta.env.VITE_API_URL}/public/payment-config`);
+        const res = await apiFetch(`${(import.meta.env.VITE_API_URL || '').replace(/\/$/, '')}/public/payment-config`);
         const data = await res.json();
         setIsLiveMode(data.isLiveMode);
         setRazorpayKey(data.razorpayKeyId);
@@ -73,7 +73,7 @@ const PaymentPage: React.FC<PaymentPageProps> = ({ onPaymentSuccess }) => {
       setLoading(true);
       setError(null);
 
-      const response = await apiFetch(`${import.meta.env.VITE_API_URL}/course/demo-purchase`, {
+      const response = await apiFetch(`${(import.meta.env.VITE_API_URL || '').replace(/\/$/, '')}/course/demo-purchase`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: user.id })
@@ -103,7 +103,7 @@ const PaymentPage: React.FC<PaymentPageProps> = ({ onPaymentSuccess }) => {
       setError(null);
 
       const token = localStorage.getItem('token');
-      const response = await apiFetch(`${import.meta.env.VITE_API_URL}/payments/create-order`, {
+      const response = await apiFetch(`${(import.meta.env.VITE_API_URL || '').replace(/\/$/, '')}/payments/create-order`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ const PaymentPage: React.FC<PaymentPageProps> = ({ onPaymentSuccess }) => {
         order_id: order.orderId,
         handler: async function (res: any) {
           try {
-            const verifyRes = await apiFetch(`${import.meta.env.VITE_API_URL}/payments/verify`, {
+            const verifyRes = await apiFetch(`${(import.meta.env.VITE_API_URL || '').replace(/\/$/, '')}/payments/verify`, {
                method: 'POST',
                headers: {
                  'Content-Type': 'application/json',

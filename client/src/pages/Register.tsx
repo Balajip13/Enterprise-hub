@@ -18,7 +18,7 @@ import PasswordInput from '../components/PasswordInput';
 
 interface RegisterProps {}
 
-const API_BASE = `${import.meta.env.VITE_API_URL}/auth`;
+const API_BASE = `${(import.meta.env.VITE_API_URL || '').replace(/\/$/, '')}/auth`;
 
 const getPasswordStrength = (pw: string) => {
   if (!pw) return 0;

@@ -55,7 +55,7 @@ const AdminReports: React.FC = () => {
     // 1. Call Backend Export Endpoint as requested
     const reportType = title.toLowerCase().replace(' ', '-');
     try {
-      await apiFetch(`${import.meta.env.VITE_API_URL}/admin/reports/${reportType}/export`);
+      await apiFetch(`${(import.meta.env.VITE_API_URL || '').replace(/\/$/, '')}/admin/reports/${reportType}/export`);
     } catch (e) {
       console.error('Backend export call failed');
     }

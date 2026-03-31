@@ -22,7 +22,7 @@ interface LoginProps {
 
 type LoginStep = 'WELCOME' | 'SUCCESS';
 
-const API_BASE = `${import.meta.env.VITE_API_URL}/auth`;
+const API_BASE = `${(import.meta.env.VITE_API_URL || '').replace(/\/$/, '')}/auth`;
 
 const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   const navigate = useNavigate();
