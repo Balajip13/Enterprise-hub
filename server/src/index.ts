@@ -37,6 +37,18 @@ app.use(cors({
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
+// ── Database Readiness Check ────────────────────────────────────────────────
+app.use((req, res, next) => {
+  // readyState: 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting
+  if (mongoose.connection.readyState !== 1 && mongoose.connection.readyState !== 2) {
+    return res.status(503).json({
+      success: false,
+      message: 'Service Unavailable: Database connection not established. Please verify MONGODB_URI and MongoDB Atlas IP access list.'
+    });
+  }
+  next();
+});
+
 // ── Health Check ────────────────────────────────────────────────────────────
 app.get('/', (req, res) => {
   res.send('Server is running');
@@ -87,6 +99,7 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 });
 
 // ── Database Connection & Server Start ─────────────────────────────────────
+mongoose.set('bufferCommands', false);
 mongoose.connect(process.env.MONGODB_URI as string)
   .then(() => {
     console.log('✅ Connected to MongoDB');
