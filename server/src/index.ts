@@ -87,16 +87,18 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 });
 
 // ── Database Connection & Server Start ─────────────────────────────────────
-mongoose.connect(process.env.MONGODB_URI!)
+mongoose.connect(process.env.MONGODB_URI as string)
   .then(() => {
     console.log('✅ Connected to MongoDB');
-    app.listen(Number(PORT), '0.0.0.0', () => {
-      console.log(`🚀 Server running on port ${PORT}`);
-    });
   })
   .catch((err) => {
     console.error('❌ MongoDB connection error:', err);
-    process.exit(1);
+    // Don't exit process so Render can still detect the open port
+    // process.exit(1);
   });
+
+app.listen(Number(PORT), '0.0.0.0', () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
 
 export default app;
